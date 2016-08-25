@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+	h1.
+		#{title}
+	form#formAddUser(name="adduser", method="post", action="/users")
+		p Name:
+			input#inputName(type="text", placeholder="ex. Bob Smith", name="name")
+		p Email:
+			input#inputEmail(type="text", placeholder="ex. me@mail.com", name="email")
+		p Are you an Admin?
+			input#inputIsAdmin(type="checkbox", name="isadmin")
+		p
+			button#btnSubmit(type="submit") submit
