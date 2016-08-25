@@ -72,7 +72,7 @@ router.get('/new', function(req, res){
 router.param('id', function(req, res, next, id) {
     //console.log('validating ' + id + ' exists');
     //find the ID in the Database
-    mongoose.model('User').findById(id, function (err, blob) {
+    mongoose.model('User').findById(id, function (err, user) {
         //if it isn't found, we are going to repond with 404
         if (err) {
             console.log(id + ' was not found');
@@ -103,7 +103,7 @@ router.route('/:id/edit')
 	//GET the individual user by Mongo ID
 	.get(function(req, res) {
 	    //search for the user within Mongo
-	    mongoose.model('User').findById(req.id, function (err, blob) {
+	    mongoose.model('User').findById(req.id, function (err, user) {
 	        if (err) {
 	            console.log('GET Error: There was a problem retrieving: ' + err);
 	        } else {
@@ -112,14 +112,14 @@ router.route('/:id/edit')
 	            res.format({
 	                //HTML response will render the 'edit.jade' template
 	                html: function(){
-	                       res.render('blobs/edit', {
-	                          title: 'User' + blob._id,
+	                       res.render('users/edit', {
+	                          title: 'User' + user._id,
 	                          "user" : user
 	                      });
 	                 },
 	                 //JSON response will return the JSON output
 	                json: function(){
-	                       res.json(blob);
+	                       res.json(user);
 	                 }
 	            });
 	        }
@@ -133,13 +133,13 @@ router.route('/:id/edit')
 	    var isAdmin = req.body.isAdmin;
 
 	    //find the document by ID
-	    mongoose.model('Blob').findById(req.id, function (err, blob) {
+	    mongoose.model('user').findById(req.id, function (err, user) {
 	        //update it
-	        blob.update({
+	        user.update({
 	            name : name,
 	            email : email,
 	            isAdmin : isAdmin
-	        }, function (err, blobID) {
+	        }, function (err, userID) {
 	          if (err) {
 	              res.send("There was a problem updating the information to the database: " + err);
 	          } 
@@ -151,7 +151,7 @@ router.route('/:id/edit')
 	                     },
 	                     //JSON responds showing the updated values
 	                    json: function(){
-	                           res.json(blob);
+	                           res.json(user);
 	                     }
 	                  });
 	           }

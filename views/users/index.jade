@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+	h1.
+		#{title}
+	table
+		thead
+			tr
+				th name
+				th email
+				th Is Admin?
+				th ID
+				th Actions
+		tbody
+			- each user, i in users
+				tr
+					td= user.name
+					td= user.email
+					td= user.isAdmin
+					td= user._id
+					td 
+						form(action='/users/#{user._id}/edit', method='post', enctype='application/x-www-form-url-urlencoded')
+							input(type='hidden', value='DELETE', name='_method')
+							button(type='submit').
+								Delete
+						p
+							a(href='/users/#{user._id}/edit') Edit
+						p
+							a(href='/users/#{user._id}') Show
