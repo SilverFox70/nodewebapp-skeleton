@@ -6,4 +6,9 @@ block content
 	p Name: #{user.name}
 	p Email: #{user.email}
 	p Is Admin: #{user.isAdmin}
+
+	p
+		a(href='/users') Back
+		|    
+		a(href='/users/#{user._id}/edit') Update
 	
